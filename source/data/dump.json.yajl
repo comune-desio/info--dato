@@ -1,0 +1,12 @@
+def item_dump(item:)
+  item.fields.map(&:api_key).map(&:to_sym).each_with_object({}) do |field, memo|
+    memo[field] = item.send(field)
+  end
+end
+
+json = {
+  info: item_dump(item: dato.info),
+  links: dato.links.map do |link|
+    item_dump(item: link)
+  end
+}
