@@ -1,12 +1,14 @@
-def item_dump(item:)
-  item.fields.map(&:api_key).map(&:to_sym).each_with_object({}) do |field, memo|
-    memo[field] = item.send(field)
-  end
-end
-
 json = {
-  info: item_dump(item: dato.info),
-  links: dato.links.map do |link|
-    item_dump(item: link)
+  description: dato.info.description,
+  cards: dato.cards.map do |card|
+    {
+      title: card.title,
+      covers: card.covers.map do |cover|
+        {
+          url: cover.cover.file.to_url
+        }
+      end,
+      link: card.link
+    }
   end
 }
