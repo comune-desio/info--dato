@@ -1,6 +1,6 @@
 json = {
   description: dato.info.description,
-  cards: dato.cards.map do |card|
+  cards: dato.cards.reject(&:hidden).map do |card|
     {
       title: card.title,
       covers: card.covers.map do |cover|
